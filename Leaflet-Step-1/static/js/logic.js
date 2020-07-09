@@ -9,12 +9,18 @@ d3.json(queryUrl, function(data) {
 function createFeatures(earthquakeData) {
 
   // Define streetmap layer
-  var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}?" +
-  "access_token=pk.eyJ1IjoiYW5nZWxhcGh1eW5oIiwiYSI6ImNrYnNoOXY3aTAxanUzMWxmdzJpMzcxMWoifQ.QV9ilLg1hwMbU2LJOUI9pg");
+  var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "mapbox/streets-v11",
+    accessToken: API_KEY});
 
   // Define darkmap layer
-  var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/256/{z}/{x}/{y}?" +
-  "access_token=pk.eyJ1IjoiYW5nZWxhcGh1eW5oIiwiYSI6ImNrYnNoOXY3aTAxanUzMWxmdzJpMzcxMWoifQ.QV9ilLg1hwMbU2LJOUI9pg");
+  var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "mapbox/dark-v10",
+    accessToken: API_KEY});
 
   //Array that holds all circles
   var myCircleArray = new Array();
@@ -43,7 +49,7 @@ function createFeatures(earthquakeData) {
       color: color,
       fillColor: color,
       radius: (properties.mag * 15000)
-    }).bindPopup("<h1>" + properties.place + "</h1> <hr> <h3>Magnitude: " + properties.mag.toFixed(2) + "</h3>");
+    }).bindPopup("<h1>" + properties.place + "</h1> <hr> <h3>Magnitude: " + properties.mag + "</h3>");
     //Add the cricle to the array
     myCircleArray.push(myCircle);
   }
